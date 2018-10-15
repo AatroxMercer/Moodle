@@ -7,17 +7,22 @@ double input[_max];
 double sample;
 
 int binarySearch(int left, int middle, int right) {
+	// cout << left << middle << right << input[middle] << endl;
 	if (middle == left || middle == right)
 	{
-		if (input[middle] - sample)
+		if (input[left] == sample)
 		{
-			return -1;
+			return left;
+		}
+		else if (input[right] == sample)
+		{
+			return right;
 		}
 		else {
-			return middle;
+			return -1;
 		}
 	}
-	
+
 	if (input[middle] == sample)
 	{
 		return middle;
@@ -34,19 +39,14 @@ int binarySearch(int left, int middle, int right) {
 
 int main(int argc, char const *argv[])
 {
-	int left, middle, right;
-
 	memset(input, 0, sizeof(input));
 	for (int i = 0; i < _max; ++i)
 	{
 		cin >> input[i];
 	}
 	cin >> sample;
-	left = 0;
-	right = _max - 1;
-	middle = (left + right) / 2;
 
-	cout << binarySearch(left, middle, right) << endl;
+	cout << binarySearch(0, (_max - 1) / 2, _max - 1) << endl;
 
 	return 0;
 }

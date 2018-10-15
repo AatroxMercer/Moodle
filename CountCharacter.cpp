@@ -17,6 +17,7 @@ int main(int argc, char const *argv[])
 	inputLength = strlen(input);
 
 	cout << inputLength << endl;
+	// cout << inputLength - 1 << endl;
 
 	return 0;
 }
