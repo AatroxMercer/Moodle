@@ -33,7 +33,6 @@ struct Student
 
     static int count;
 
-    // int _id, _class;
     string _id, _class;
     string _name;
     double _s1, _s2, _s3;
@@ -52,20 +51,32 @@ void outMenu() {
 }
 
 void _input() {
-  // int id, classId;
   string id, classId;
   string name;
   double s1, s2, s3;
 
-  cout << endl << "Id ", cin >> id;
-  cout << endl << "class ", cin >> classId;
-  cout << endl << "name ", cin >> name;
-  cout << endl << "score1 ", cin >> s1;
-  cout << endl << "score2 ", cin >> s2;
-  cout << endl << "score3 ", cin >> s3;
-  cout << endl;
+  cout << "Id ", cin >> id;
+  cout << "class ", cin >> classId;
+  cout << "name ", cin >> name;
+  cout << "score1 ", cin >> s1;
+  cout << "score2 ", cin >> s2;
+  cout << "score3 ", cin >> s3;
 
-  stu[Student::count++].init(id, classId, name, s1, s2, s3);
+
+  bool isNotFound = true;
+  for (int i = 0; i < Student::count; ++i)
+  {
+    if (stu[i].check(id))
+    {
+      isNotFound = false;
+      stu[i].init(id, classId, name, s1, s2, s3);
+      break;
+    }
+  }
+  if (isNotFound)
+  {
+    stu[Student::count++].init(id, classId, name, s1, s2, s3);
+  }
 
   string order;
   cout << "continue?" << endl, cin >> order;
@@ -121,21 +132,24 @@ bool cmp(Student sl, Student sr) {
 
 void _select() {
   void output(Student);
+  void _output();
 
   string feature;
   cin >> feature;
 
-  bool isFound = false;
+  bool isNotFound = true;
+
+  _output();
   for (int i = 0; i < Student::count; ++i)
   {
     if (stu[i].check(feature))
     {
-      isFound = true;
-      output(stu[i]);     
+      isNotFound = false;
+      output(stu[i]);
     }
   }
 
-  if (!isFound)
+  if (isNotFound)
   {
     cout << "there is no eligible student" << endl;
   }
@@ -150,25 +164,20 @@ void _order() {
 }
 
 void output(Student s) {
-  cout << s._class << " ";
-  cout << s._name << " ";
-  cout << s._s1 << " ";
-  cout << s._id << " ";
-  cout << s._s2 << " ";
-  cout << s._s3 << " ";
+  cout << s._id << ",";
+  cout << s._class << ",";
+  cout << s._name << ",";
+  cout << s._s1 << ",";
+  cout << s._s2 << ",";
+  cout << s._s3 << ",";
   cout << s.total() << endl;
 }
 
 void _output() {
-  cout << "_output" << endl;
   for (int i = 0; i < Student::count; ++i)
   {
     output(stu[i]);
   }
-}
-
-void _quit() {
-  cout << "Bye~~~" << endl;
 }
 
 void pfssm() {
@@ -177,6 +186,7 @@ void pfssm() {
     outMenu();
 
     cin >> order;
+    // cout << order;
 
     switch (order) {
       case 1:
@@ -195,8 +205,11 @@ void pfssm() {
         _output();
         break;
       case 6:
-        // _quit();
         return;
+        break;
+      case 0:
+        return;
+        break;
 
       default:
         break;
@@ -208,9 +221,9 @@ int main(int argc, char const *argv[])
 {
   cout << setiosflags(ios::fixed) << setprecision(1);
 
-  stu[Student::count++].init("10001", "11", "Zhang", 99.5, 88.5, 89.5);
-  stu[Student::count++].init("10002", "12", "Yang", 77.9, 56.5, 87.5);
-  stu[Student::count++].init("10003", "11", "Liang", 92.5, 99.0, 60.5);
+  stu[Student::count++].init("1001", "11", "zhang", 99.5, 88.5, 89.5);
+  stu[Student::count++].init("1002", "12", "tang", 77.9, 56.5, 87.5);
+  stu[Student::count++].init("1003", "11", "liang", 92.5, 99.0, 60.5);
 
   pfssm();
 
