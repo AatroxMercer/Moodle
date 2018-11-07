@@ -1,44 +1,69 @@
 #include <iostream>
-#include <iomanip>
 #include <string>
+#include <iomanip>
 #include <algorithm>
 using namespace std;
 
-const int _MAX_ = 100000;
+const int _MAX_ = 100;
 
-struct Student
+struct  Student
 {
-  public:
-    Student() {}
-    void init(string id, string classId, string name, double s1, double s2, double s3) {
-      _id = id;
-      _class = classId;
-      _name = name;
-      _s1 = s1;
-      _s2 = s2;
-      _s3 = s3;
-    }
+    public:
+        static int _count;
+        string _id, _class, _name;
+        double _score1, _score2, _score3;
+        double _total;
 
-    bool check(string feature) {
-      if (feature == _id || feature == _class || feature == _name)
-      {
-        return true;
-      }
-      return false;
-    }
+        static void bye() {
+            Student::_count--;
+        }
 
-    double total() {
-      return _s1 + _s2 + _s3;
-    }
+        void init(
+            string id,
+            string classId,
+            string name,
+            double s1,
+            double s2,
+            double s3
+            ) {
+            _id =id;
+            _class = classId;
+            _name = name;
+            _score1 = s1;
+            _score2 = s2;
+            _score3 = s3;
+            _total = s3 + s2 + s1;
+        }
 
-    static int count;
+        bool check(string _feature) {
+            return _feature == _id || _feature == _class || _feature == _name;
+        }
 
-    string _id, _class;
-    string _name;
-    double _s1, _s2, _s3;
+        void output() {
+            cout << _id << ",";
+            cout << _class << ",";
+            cout << _name << ",";
+            cout << _score1 << ",";
+            cout << _score2 << ",";
+            cout << _score3 << ",";
+            cout << _total << endl;
+        }
+} stdnt[_MAX_];
+int Student::_count = 0;
+int & _count = Student::_count;
 
-} stu[_MAX_];
-int Student::count = 0;
+int main(int argc, char const *argv[])
+{
+    void pfssm();
+    cout << setiosflags(ios::fixed) << setprecision(1);
+
+    stdnt[_count++].init("1001", "11", "zhang", 99.5, 88.5, 89.5);
+    stdnt[_count++].init("1002", "12", "tang", 77.9, 56.5, 87.5);
+    stdnt[_count++].init("1003", "11", "liang", 92.5, 99.0, 60.5);
+
+    pfssm();
+    return 0;
+}
 
 void outMenu() {
   cout << "1.input" << endl;
@@ -50,182 +75,164 @@ void outMenu() {
   cout << "please input your option" << endl;
 }
 
-void _input() {
-  string id, classId;
-  string name;
-  double s1, s2, s3;
-
-  cout << "Id ", cin >> id;
-  cout << "class ", cin >> classId;
-  cout << "name ", cin >> name;
-  cout << "score1 ", cin >> s1;
-  cout << "score2 ", cin >> s2;
-  cout << "score3 ", cin >> s3;
-
-
-  bool isNotFound = true;
-  for (int i = 0; i < Student::count; ++i)
-  {
-    if (stu[i].check(id))
-    {
-      isNotFound = false;
-      stu[i].init(id, classId, name, s1, s2, s3);
-      break;
-    }
-  }
-  if (isNotFound)
-  {
-    stu[Student::count++].init(id, classId, name, s1, s2, s3);
-  }
-
-  string order;
-  cout << "continue?" << endl, cin >> order;
-  if (order == "yes")
-  {
-    _input();
-  } else {
-    if (order == "no")
-    {
-      return ;
-    }
-  }
-}
-
-void _delete() {
-  void _output();
-
-  string feature;
-  cin >> feature;
-  
-  for (int i = 0; i < Student::count && Student::count > 1; ++i)
-  {
-    if (stu[i].check(feature))
-    {
-      stu[i] = stu[--Student::count];
-      break;
-    }
-  }
-
-  _output();
-
-  string order;
-  cout << "continue?" << endl, cin >> order;
-  if (order == "yes")
-  {
-    _delete();
-  } else {
-    if (order == "no")
-    {
-      return ;
-    }
-  }
-}
-
-bool cmp(Student sl, Student sr) {
-  if (sl._class == sr._class)
-   {
-    return sl.total() > sr.total();
-   } else {
-    return sl._class < sr._class;
-   }
-}
-
-void _select() {
-  void output(Student);
-  void _output();
-
-  string feature;
-  cin >> feature;
-
-  bool isNotFound = true;
-
-  _output();
-  for (int i = 0; i < Student::count; ++i)
-  {
-    if (stu[i].check(feature))
-    {
-      isNotFound = false;
-      output(stu[i]);
-    }
-  }
-
-  if (isNotFound)
-  {
-    cout << "there is no eligible student" << endl;
-  }
-}
-
-void _order() {
-  void _output();
-
-  sort(stu, stu+Student::count, cmp);
-
-  _output();
-}
-
-void output(Student s) {
-  cout << s._id << ",";
-  cout << s._class << ",";
-  cout << s._name << ",";
-  cout << s._s1 << ",";
-  cout << s._s2 << ",";
-  cout << s._s3 << ",";
-  cout << s.total() << endl;
-}
-
-void _output() {
-  for (int i = 0; i < Student::count; ++i)
-  {
-    output(stu[i]);
-  }
-}
-
 void pfssm() {
-  int order;
-  while (true) {
-    outMenu();
+    void input();
+    void remove();
+    void select();
+    void order();
+    void output();
 
-    cin >> order;
-    // cout << order;
+    int _mission;
 
-    switch (order) {
-      case 1:
-        _input();
-        break;
-      case 2:
-        _delete();
-        break;
-      case 3:
-        _select();
-        break;
-      case 4:
-        _order();
-        break;
-      case 5:
-        _output();
-        break;
-      case 6:
-        return;
-        break;
-      case 0:
-        return;
-        break;
+    while (true) {
+        outMenu();
+        cin >> _mission;
 
-      default:
-        break;
+        switch(_mission) {
+            case 1:
+                input();
+                break;
+            case 2:
+                remove();
+                break;
+            case 3:
+                select();
+                break;
+            case 4:
+                order();
+                break;
+            case 5:
+                output();
+                break;
+
+            default:
+                return;
+                break;
+        }
     }
-  }
 }
 
-int main(int argc, char const *argv[])
-{
-  cout << setiosflags(ios::fixed) << setprecision(1);
+void output() {
+    for (int i = 0; i < _count; ++i)
+    {
+        stdnt[i].output();
+    }
+}
 
-  stu[Student::count++].init("1001", "11", "zhang", 99.5, 88.5, 89.5);
-  stu[Student::count++].init("1002", "12", "tang", 77.9, 56.5, 87.5);
-  stu[Student::count++].init("1003", "11", "liang", 92.5, 99.0, 60.5);
+void input() {
+    string id, classId;
+    string name;
+    double s1, s2, s3;
 
-  pfssm();
+    cout << "Id ", cin >> id;
+    cout << "class ", cin >> classId;
+    cout << "name ", cin >> name;
+    cout << "score1 ", cin >> s1;
+    cout << "score2 ", cin >> s2;
+    cout << "score3 ", cin >> s3;
 
-  return 0;
+    bool isExist = false;
+    for (int i = 0; i < _count; ++i)
+    {
+        if (stdnt[i].check(id))
+        {
+            isExist = true;
+            stdnt[i].init(id, classId, name, s1, s2, s3);
+        }
+    }
+
+    if (!isExist)
+    {
+        stdnt[_count++].init(id, classId, name, s1, s2, s3);
+    }
+
+    string _mission;
+    cout << "continue?" << endl, cin >> _mission;
+    if (_mission == "yes")
+    {
+        input();
+    } else {
+        // if (_mission == "no")
+        // {
+            return ;
+        // }
+    }
+}
+
+void _delete(int index) {
+        for (int i = index; i < _count; ++i)
+        {
+            stdnt[i]  = stdnt[i+1];
+        }
+        Student::bye();
+}
+
+void remove() {
+    string _feature;
+    cin >> _feature;
+
+    if (_count > 1)
+    {
+        for (int i = 0; i < _count; ++i)
+        {
+            if (stdnt[i].check(_feature))
+            {
+                _delete(i);
+                break;
+            }
+        }
+    }
+    output();
+
+    string _mission;
+    cout << "continue?" << endl, cin >> _mission;
+    if (_mission == "yes")
+    {
+        remove();
+    } else {
+        // if (_mission == "no")
+        // {
+            return ;
+        // }
+    }
+}
+
+void select() {
+    string _feature;
+    cin >> _feature;
+
+    for (int i = 0; i < _count; ++i)
+    {
+        if (stdnt[i].check(_feature))
+        {
+            stdnt[i].output();
+        }
+    }
+
+    string _mission;
+    cout << "continue?" << endl, cin >> _mission;
+    if (_mission == "yes")
+    {
+        select();
+    } else {
+        // if (_mission == "no")
+        // {
+            return ;
+        // }
+    }
+}
+
+bool orderCmp(Student sl, Student sr) {
+    if (sl._class == sr._class)
+    {
+        return sl._class < sr._class;
+    } else {
+        return sl._total > sr._total;
+    }
+}
+
+void order() {
+    sort(stdnt, stdnt + _count, orderCmp);
+
+    output();
 }
