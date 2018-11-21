@@ -8,46 +8,46 @@ const int _MAX_ = 100;
 
 struct  Student
 {
-    public:
-        static int _count;
-        string _id, _class, _name;
-        double _score1, _score2, _score3;
-        double _total;
+public:
+    static int _count;
+    string _id, _class, _name;
+    double _score1, _score2, _score3;
+    double _total;
 
-        static void bye() {
-            Student::_count--;
-        }
+    static void bye() {
+        Student::_count--;
+    }
 
-        void init(
-            string id,
-            string classId,
-            string name,
-            double s1,
-            double s2,
-            double s3
-            ) {
-            _id =id;
-            _class = classId;
-            _name = name;
-            _score1 = s1;
-            _score2 = s2;
-            _score3 = s3;
-            _total = s3 + s2 + s1;
-        }
+    void init(
+        string id,
+        string classId,
+        string name,
+        double s1,
+        double s2,
+        double s3
+    ) {
+        _id = id;
+        _class = classId;
+        _name = name;
+        _score1 = s1;
+        _score2 = s2;
+        _score3 = s3;
+        _total = s3 + s2 + s1;
+    }
 
-        bool check(string _feature) {
-            return _feature == _id || _feature == _class || _feature == _name;
-        }
+    bool check(string _feature) {
+        return _feature == _id || _feature == _class || _feature == _name;
+    }
 
-        void output() {
-            cout << _id << ",";
-            cout << _class << ",";
-            cout << _name << ",";
-            cout << _score1 << ",";
-            cout << _score2 << ",";
-            cout << _score3 << ",";
-            cout << _total << endl;
-        }
+    void output() {
+        cout << _id << ",";
+        cout << _class << ",";
+        cout << _name << ",";
+        cout << _score1 << ",";
+        cout << _score2 << ",";
+        cout << _score3 << ",";
+        cout << _total << endl;
+    }
 } stdnt[_MAX_];
 int Student::_count = 0;
 int & _count = Student::_count;
@@ -66,13 +66,13 @@ int main(int argc, char const *argv[])
 }
 
 void outMenu() {
-  cout << "1.input" << endl;
-  cout << "2.delete" << endl;
-  cout << "3.select" << endl;
-  cout << "4.order" << endl;
-  cout << "5.output" << endl;
-  cout << "6.quit" << endl;
-  cout << "please input your option" << endl;
+    cout << "1.input" << endl;
+    cout << "2.delete" << endl;
+    cout << "3.select" << endl;
+    cout << "4.order" << endl;
+    cout << "5.output" << endl;
+    cout << "6.quit" << endl;
+    cout << "please input your option" << endl;
 }
 
 void pfssm() {
@@ -88,26 +88,26 @@ void pfssm() {
         outMenu();
         cin >> _mission;
 
-        switch(_mission) {
-            case 1:
-                input();
-                break;
-            case 2:
-                remove();
-                break;
-            case 3:
-                select();
-                break;
-            case 4:
-                order();
-                break;
-            case 5:
-                output();
-                break;
+        switch (_mission) {
+        case 1:
+            input();
+            break;
+        case 2:
+            remove();
+            break;
+        case 3:
+            select();
+            break;
+        case 4:
+            order();
+            break;
+        case 5:
+            output();
+            break;
 
-            default:
-                return;
-                break;
+        default:
+            return;
+            break;
         }
     }
 }
@@ -154,17 +154,17 @@ void input() {
     } else {
         // if (_mission == "no")
         // {
-            return ;
+        return ;
         // }
     }
 }
 
 void _delete(int index) {
-        for (int i = index; i < _count; ++i)
-        {
-            stdnt[i]  = stdnt[i+1];
-        }
-        Student::bye();
+    for (int i = index; i < _count; ++i)
+    {
+        stdnt[i]  = stdnt[i + 1];
+    }
+    Student::bye();
 }
 
 void remove() {
@@ -192,7 +192,7 @@ void remove() {
     } else {
         // if (_mission == "no")
         // {
-            return ;
+        return ;
         // }
     }
 }
@@ -217,7 +217,7 @@ void select() {
     } else {
         // if (_mission == "no")
         // {
-            return ;
+        return ;
         // }
     }
 }
