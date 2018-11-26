@@ -152,10 +152,10 @@ void input() {
     {
         input();
     } else {
-        // if (_mission == "no")
-        // {
-        return ;
-        // }
+        if (_mission == "no")
+        {
+            return ;
+        }
     }
 }
 
