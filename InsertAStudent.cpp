@@ -36,7 +36,7 @@ void init() {
 }
 
 int main(int argc, char const *argv[])
-{	
+{
 	memset(stu, 0, sizeof(stu));
 	stu[0] = {10001, 11, 99.5, 88.5, 89.5, 277.5, false};
 	stu[1] = {10002, 12, 77.9, 56.5, 87.5, 221.9, false};
