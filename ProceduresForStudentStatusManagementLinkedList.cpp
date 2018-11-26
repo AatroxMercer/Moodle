@@ -19,22 +19,22 @@ public:
     Student* last;
 
     bool operator==(const Student& that) {
-        return this->name == that.name || this->id == that.id || this->classNum == that.classNum;
+        return this->getName() == that.getName() || this->getId() == that.getId() || this->getClass() == that.getClass();
     }
     bool operator<(const Student& that) {
-        if (this->getClassNum() == that.getClassNum())
+        if (this->getClass() == that.getClass())
         {
             return this->score() > that.score();
         } else {
-            return this->getClassNum() < that.getClassNum();
+            return this->getClass() < that.getClass();
         }
     }
     bool operator>(const Student& that) {
-        if (this->getClassNum() == that.getClassNum())
+        if (this->getClass() == that.getClass())
         {
             return this->score() < that.score();
         } else {
-            return this->getClassNum() > that.getClassNum();
+            return this->getClass() > that.getClass();
         }
     }
 
@@ -42,7 +42,14 @@ public:
         return feature == id || feature == classNum || feature == name;
     }
 
-    string getClassNum() const {
+    //获取私有成员变量或计算属性
+    string getName() const {
+        return this->name;
+    }
+    string getId() const {
+        return this->id;
+    }
+    string getClass() const {
         return this->classNum;
     }
     double score() const {
@@ -134,9 +141,9 @@ void add(
     Student* temp = head;
     Student* newOne = create(id, classId, name, s1, s2, s3);
     bool isExist = false;
-
+    cout << (*temp == *newOne);
     while (temp != nullptr) {
-        if (&temp == &newOne)
+        if (*temp == *newOne)
         {
             isExist = true;
             temp->init(id, classId, name, s1, s2, s3);
@@ -155,7 +162,6 @@ void add(
 
 int main(int argc, char const*argv[])
 {
-
     void pfssm();
 
     //修改cout格式
@@ -354,13 +360,7 @@ void swap(Student* now, Student* next) {
 
 //给学生信息排序
 void order() {
-    Student* end = tail;
-    while (head != end) {
-        Student* temp = head;
-        while (temp != end) {
 
-        }
-    }
 
     output();
 }
